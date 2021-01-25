@@ -2,7 +2,8 @@ package entities
 
 class Player {
     val health: Health = 30
-    val mana: Mana = 0
+    var mana: Mana = 0
+    var manaSlot: ManaSlot = 0
     val deck: Deck = Deck()
     val hand: Hand = Hand()
 
@@ -12,4 +13,8 @@ class Player {
 
     fun getDeckSize(): Int = deck.size()
     fun getHandSize(): Int = hand.size()
+    fun receiveManaSlot() {
+        manaSlot++
+        mana = manaSlot
+    }
 }

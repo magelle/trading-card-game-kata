@@ -12,4 +12,10 @@ class Game {
         player1.draw(numberToDraw)
         player2.draw(numberToDraw)
     }
+
+    fun turn() {
+        player1.receiveManaSlot()
+        player1.draw(1)
+    }
+
 }
