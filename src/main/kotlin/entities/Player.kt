@@ -7,9 +7,11 @@ class Player {
     val deck: Deck = Deck()
     val hand: Hand = Hand()
 
-    fun draw(numberToDraw: Int) = repeat(numberToDraw) { drawCard() }
+    fun draw(randomInt: RandomInt, numberToDraw: Int) =
+        repeat(numberToDraw) { drawCard(randomInt) }
 
-    private fun drawCard() = deck.draw().let(hand::add)
+    private fun drawCard(randomInt: RandomInt) =
+        deck.draw(randomInt).let(hand::add)
 
     fun getDeckSize(): Int = deck.size()
     fun getHandSize(): Int = hand.size()

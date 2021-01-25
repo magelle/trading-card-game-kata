@@ -1,7 +1,8 @@
 package usecases.command
 
 import entities.Game
+import entities.RandomInt
 
-class CreateGame {
-    fun exec(): Game = Game()
+class CreateGame(private val randomInt: RandomInt) {
+    fun exec(): Game = Game(randomInt)
 }

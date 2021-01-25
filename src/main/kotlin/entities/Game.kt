@@ -1,6 +1,6 @@
 package entities
 
-class Game {
+class Game(private val randomInt: RandomInt) {
     val player2: Player = Player()
     val player1: Player = Player()
 
@@ -9,13 +9,13 @@ class Game {
     }
 
     private fun allPlayersDraw(numberToDraw: Int) {
-        player1.draw(numberToDraw)
-        player2.draw(numberToDraw)
+        player1.draw(randomInt, numberToDraw)
+        player2.draw(randomInt, numberToDraw)
     }
 
     fun turn() {
         player1.receiveManaSlot()
-        player1.draw(1)
+        player1.draw(randomInt, 1)
     }
 
 }
