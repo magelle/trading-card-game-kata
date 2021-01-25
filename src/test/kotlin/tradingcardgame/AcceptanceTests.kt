@@ -12,7 +12,7 @@ import kotlin.test.Test
 
 class AcceptanceTests {
 
-    val alwaysReturn0: RandomInt = { 0 }
+    private val alwaysReturn0: RandomInt = { 0 }
 
     @Test
     fun `Each player starts the game with 30 Health`() {
