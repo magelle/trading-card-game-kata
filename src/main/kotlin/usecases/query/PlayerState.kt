@@ -10,7 +10,8 @@ class PlayerState(
     val health: Health,
     val deckSize: Int,
     val handSize: Int,
-    val cardsInDeck: List<Card>
+    val deck: List<Card>,
+    val hand: List<Card>
 ) {
     companion object {
         fun from(player: Player) = PlayerState(
@@ -18,7 +19,8 @@ class PlayerState(
             health = player.health,
             deckSize = player.deck.size(),
             handSize = player.hand.size(),
-            cardsInDeck = player.deck.allCards()
+            deck = player.deck.allCards(),
+            hand = player.hand.allCards()
         )
     }
 }

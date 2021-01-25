@@ -8,4 +8,5 @@ class Hand {
     }
 
     fun size() = cards.size
+    fun allCards(): List<Card> = cards
 }

@@ -45,8 +45,8 @@ class AcceptanceTests {
 
         val player1 = GetPlayer1(game).get()
         val player2 = GetPlayer2(game).get()
-        assertThat(player1.cardsInDeck).containsExactlyInAnyOrder(0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 8)
-        assertThat(player2.cardsInDeck).containsExactlyInAnyOrder(0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 8)
+        assertThat(player1.deck).containsExactlyInAnyOrder(0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 8)
+        assertThat(player2.deck).containsExactlyInAnyOrder(0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 8)
     }
 
     @Test
