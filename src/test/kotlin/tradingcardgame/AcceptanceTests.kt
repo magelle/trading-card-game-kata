@@ -35,8 +35,8 @@ class AcceptanceTests {
 
         val player1 = GetPlayer1(game).get()
         val player2 = GetPlayer2(game).get()
-        assertThat(player1.getDeckSize()).isEqualTo(20)
-        assertThat(player2.getDeckSize()).isEqualTo(20)
+        assertThat(player1.deckSize).isEqualTo(20)
+        assertThat(player2.deckSize).isEqualTo(20)
     }
 
     @Test
