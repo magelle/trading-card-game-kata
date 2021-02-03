@@ -5,7 +5,7 @@ import entities.Health
 import entities.Mana
 import entities.Player
 
-class PlayerState(
+data class PlayerState(
     val mana: Mana,
     val manaSlot: Int,
     val health: Health,

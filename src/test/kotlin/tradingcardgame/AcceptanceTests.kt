@@ -6,6 +6,7 @@ import providers.randomInt
 import usecases.command.CreateGame
 import usecases.command.StartGame
 import usecases.command.TurnGame
+import usecases.query.GetActivePlayer
 import usecases.query.GetPlayer1
 import usecases.query.GetPlayer2
 import kotlin.test.Test
@@ -79,7 +80,7 @@ class AcceptanceTests {
         StartGame(game).exec()
         TurnGame(game).exec()
 
-        val player1 = GetPlayer1(game).get()
+        val player1 = GetActivePlayer(game).get()!!
 
         assertThat(player1.manaSlot).isEqualTo(1)
     }
@@ -90,7 +91,7 @@ class AcceptanceTests {
         StartGame(game).exec()
         TurnGame(game).exec()
 
-        val player1 = GetPlayer1(game).get()
+        val player1 = GetActivePlayer(game).get()!!
 
         assertThat(player1.mana).isEqualTo(1)
     }
@@ -101,7 +102,7 @@ class AcceptanceTests {
         StartGame(game).exec()
         TurnGame(game).exec()
 
-        val player1 = GetPlayer1(game).get()
+        val player1 = GetActivePlayer(game).get()!!
 
         assertThat(player1.deckSize).isEqualTo(16)
         assertThat(player1.handSize).isEqualTo(4)
@@ -109,6 +110,61 @@ class AcceptanceTests {
         assertThat(player1.hand).containsExactlyInAnyOrder(0, 0, 1, 1)
     }
 
+    @Test
+    internal fun `the active player should change after turn ends`() {
+        val game = CreateGame(alwaysReturn0).exec()
+        StartGame(game).exec()
+        TurnGame(game).exec()
+        val firstActivePlayer = GetActivePlayer(game).get()
+        val player1 = GetPlayer1(game).get()
+        assertThat(firstActivePlayer).isEqualTo(player1)
 
+        TurnGame(game).exec()
+        val secondActivePlayer = GetActivePlayer(game).get()
+        val player2 = GetPlayer2(game).get()
+        assertThat(secondActivePlayer).isEqualTo(player2)
+    }
+
+    @Test
+    internal fun `The second player receives 1 Mana slot up to a maximum of 10 total slots at the second turn`() {
+        val game = CreateGame(::randomInt).exec()
+        StartGame(game).exec()
+        TurnGame(game).exec()
+
+        val player2 = GetPlayer2(game).get()
+
+        assertThat(player2.manaSlot).isEqualTo(1)
+    }
+
+    @Test
+    fun `The second player's empty Mana slots are refilled at the second turn`() {
+        val game = CreateGame(::randomInt).exec()
+        StartGame(game).exec()
+        TurnGame(game).exec()
+
+        val player2 = GetPlayer2(game).get()
+
+        assertThat(player2.mana).isEqualTo(1)
+    }
+
+    @Test
+    fun `The second player draws a random card from his deck at the second turn`() {
+        val game = CreateGame(alwaysReturn0).exec()
+        StartGame(game).exec()
+        TurnGame(game).exec()
+        TurnGame(game).exec()
+
+        val player2 = GetPlayer2(game).get()
+
+        assertThat(player2.deckSize).isEqualTo(16)
+        assertThat(player2.handSize).isEqualTo(4)
+        assertThat(player2.deck).containsExactlyInAnyOrder(2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 6, 6, 7, 8)
+        assertThat(player2.hand).containsExactlyInAnyOrder(0, 0, 1, 1)
+    }
+
+    @Test
+    internal fun `The active player pays a 1 mana card and the other player losses 1 health`() {
+        TODO("Not yet implemented")
+    }
 }
 
